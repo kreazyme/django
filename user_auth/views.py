@@ -1,5 +1,9 @@
-from django.shortcuts import render, redirect
+from getpass import getuser
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import authenticate, login, logout
+from matplotlib.style import use
+
+import user_auth
 from .forms import CreateUserForm
 
 # Create your views here.
@@ -41,6 +45,22 @@ def login_account(req):
     context = {}
     return render(req, 'registration/login.html', context)
 
+def edit_account(req):
+    user = req.user
+    # user = getuser(username = username)
+    # user = get_object_or_404(user_auth, username = username)
+    form = CreateUserForm(req.POST or None,instance = user)
+
+    if req.method == 'POST':
+        form.save()
+        return redirect('books:home')
+
+    context = {
+        'form': form,
+        'user': user,
+    }
+
+    return render(req, 'registration/edit_user.html', context)
 
 def logout_account(req):
     logout(req)
