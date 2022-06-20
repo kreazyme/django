@@ -1,7 +1,10 @@
 from getpass import getuser
+from typing_extensions import Required
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import authenticate, login, logout
 from matplotlib.style import use
+from requests import request
+from django.contrib.auth.models import User
 
 import user_auth
 from .forms import CreateUserForm
@@ -45,18 +48,18 @@ def login_account(req):
     context = {}
     return render(req, 'registration/login.html', context)
 
+
 def edit_account(req):
-    user = req.user
-    # user = getuser(username = username)
-    # user = get_object_or_404(user_auth, username = username)
-    form = CreateUserForm(req.POST or None,instance = user)
+    user = get_object_or_404(User, username = req.user)
+    # print(user.last_login)
+    userform = CreateUserForm(instance = user)
 
     if req.method == 'POST':
-        form.save()
+        userform.save()
         return redirect('books:home')
 
     context = {
-        'form': form,
+        'form': userform,
         'user': user,
     }
 

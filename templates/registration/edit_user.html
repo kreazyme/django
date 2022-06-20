@@ -9,19 +9,19 @@
         <div class="col d-flex flex-column position-static p-0" style="gap: 1rem;">
             <div class="d-flex flex-column">
                 <label for="username" class="form-label">{{ form.username.label_tag }}</label>
-                <input type="text" name="username" class="form-control" id="username" placeholder={{ form.username }}</input>
+                <input type="text" name="username" class="form-control" id="username" placeholder="{{ user.username }}"required>
             </div>
             <div class="d-flex flex-column">
-                <label for="email" class="form-label">{{ form.email.label_tag }}</label>
-                <input type="text" name="email" class="form-control" id="email" placeholder="{{ form.email }}" required>
+                <label for="username" class="form-label">First Name</label>
+                <input type="text" name="username" class="form-control" id="username" placeholder="{{ form.lastlogin }}" >
             </div>
             <div class="d-flex flex-column">
                 <label for="password1" class="form-label">Password</label>
                 <input type="password" name="password1" class="form-control" id="password1" placeholder="{{ form.password }}" required>
-            </div>
+            </div> 
             <div>
                 <input type="submit" value="Register" class="btn btn-dark">
-                <a href="{% url 'user_auth:login' %}" class="btn btn-outline-dark">Login</a>
+                <a href="{% url 'user_auth:edit' %}" class="btn btn-outline-dark">Login</a>
             </div>
         </div>
         <div class="d-flex flex-column align-items-center">
