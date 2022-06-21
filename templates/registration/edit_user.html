@@ -1,8 +1,8 @@
-{% extends 'registration/base.html' %}
+{% extends 'library/base.html' %}
 {% load static %}
 {% block title %}Library | Edit account{% endblock title %}
 
-{% block form %}
+{% block content %}
 <form class="form" method="post" action="{% url 'user_auth:edit' %}" style="min-width: 60%; margin-top: 200px;">
     {% csrf_token %}
     <div class="row g-0 border rounded overflow-hidden flex-md-row align-items-center shadow-sm h-md-250 position-relative p-5" style="gap: 3rem;">
