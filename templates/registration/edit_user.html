@@ -1,6 +1,6 @@
 {% extends 'registration/base.html' %}
 {% load static %}
-{% block title %}Library | Register{% endblock title %}
+{% block title %}Library | Edit account{% endblock title %}
 
 {% block form %}
 <form class="form" method="post" action="{% url 'user_auth:edit' %}" style="min-width: 60%; margin-top: 200px;">
@@ -9,23 +9,30 @@
         <div class="col d-flex flex-column position-static p-0" style="gap: 1rem;">
             <div class="d-flex flex-column">
                 <label for="username" class="form-label">{{ form.username.label_tag }}</label>
-                <input type="text" name="username" class="form-control" id="username" placeholder="{{ user.username }}"required>
+                <input type="text" name="username" class="form-control" id="username" value="{{ user.username }}"required>
             </div>
             <div class="d-flex flex-column">
-                <label for="username" class="form-label">First Name</label>
-                <input type="text" name="username" class="form-control" id="username" placeholder="{{ form.lastlogin }}" >
+                <label for="first_name" class="form-label">First Name</label>
+                <input type="text" name="first_name" class="form-control" id="first_name" value="{{ user.first_name }}" ></input>
             </div>
             <div class="d-flex flex-column">
-                <label for="password1" class="form-label">Password</label>
-                <input type="password" name="password1" class="form-control" id="password1" placeholder="{{ form.password }}" required>
+                <label for="last_name" class="form-label">Last Name</label>
+                <input type="text" name="last_name" class="form-control" id="last_name" value="{{ user.last_name }}">
+            </div> 
+            <div class="d-flex flex-column">
+                <label for="email" class="form-label">Email</label>
+                <input type="text" name="email" class="form-control" id="email" value="{{ user.email }}" required>
             </div> 
             <div>
-                <input type="submit" value="Register" class="btn btn-dark">
-                <a href="{% url 'user_auth:edit' %}" class="btn btn-outline-dark">Login</a>
+                <input type="submit" value="Update Info" class="btn btn-dark">
+                <a href="{% url 'books:book_all' %}" class="btn btn-outline-dark">Home</a>
             </div>
         </div>
         <div class="d-flex flex-column align-items-center">
-            <h4>Make an account!</h4>
+            <h4>Hello {{user.username}}, edit your account!</h4>
+            <br>
+            <p>Join date: {{user.date_joined}}</p>
+            <p>Last login: {{user.last_login}}</p>
             <img src="{% static 'images/logo.png' %}" style="width: 6rem;" />
         </div>
     </div>

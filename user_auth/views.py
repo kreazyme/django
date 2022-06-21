@@ -7,7 +7,7 @@ from requests import request
 from django.contrib.auth.models import User
 
 import user_auth
-from .forms import CreateUserForm
+from .forms import CreateUserForm, UpdateUserForm
 
 # Create your views here.
 
@@ -51,18 +51,19 @@ def login_account(req):
 
 def edit_account(req):
     user = get_object_or_404(User, username = req.user)
-    # print(user.last_login)
-    userform = CreateUserForm(instance = user)
+    userform = UpdateUserForm(req.POST or None, instance = user)
 
     if req.method == 'POST':
-        userform.save()
-        return redirect('books:home')
-
+        if userform.is_valid:
+            userform.save()
+            return redirect('books:home')
+        else:
+            print("Sai form")
+            return redirect('books:home')
     context = {
         'form': userform,
         'user': user,
     }
-
     return render(req, 'registration/edit_user.html', context)
 
 def logout_account(req):
