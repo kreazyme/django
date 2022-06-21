@@ -52,13 +52,9 @@ def login_account(req):
 def edit_account(req):
     user = get_object_or_404(User, username = req.user)
     userform = UpdateUserForm(req.POST or None, instance = user)
-
     if req.method == 'POST':
         if userform.is_valid:
             userform.save()
-            return redirect('books:home')
-        else:
-            print("Sai form")
             return redirect('books:home')
     context = {
         'form': userform,

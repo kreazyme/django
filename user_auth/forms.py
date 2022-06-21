@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 
@@ -34,8 +34,16 @@ class CreateUserForm(UserCreationForm):
         fields = ['username', 'email', 'password1', 'password2', 'first_name', 'last_name']
 
 
-class UpdateUserForm(UserCreationForm):
+class UpdateUserForm(UserChangeForm):
     username = forms.CharField(max_length=256, required=True, widget=forms.TextInput(attrs={
+        'class': 'form-control',
+    }))
+
+    first_name = forms.CharField(max_length=256, widget=forms.TextInput(attrs={
+        'class': 'form-control',
+    }))
+
+    last_name = forms.CharField(max_length=256, widget=forms.TextInput(attrs={
         'class': 'form-control',
     }))
 
@@ -43,14 +51,10 @@ class UpdateUserForm(UserCreationForm):
         'class': 'form-control',
     }))
 
-    first_name = forms.CharField(max_length=256, required=True, widget=forms.TextInput(attrs={
-        'class': 'form-control',
-    }))
-
-    last_name = forms.CharField(max_length=256, required=True, widget=forms.TextInput(attrs={
+    password = forms.CharField(max_length=256, required=True, widget=forms.PasswordInput(attrs={
         'class': 'form-control',
     }))
 
     class Meta:
         model = User
-        fields = ['username', 'email','first_name', 'last_name']
+        fields = ['username','first_name', 'last_name', 'email', 'password']
