@@ -1,0 +1,38 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block title %}Book | History{% endblock title %}
+
+{% block content %}
+    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+        <h1 class="display-4 fw-normal">My history</h1>
+    </div>
+
+    <div class="container bg-light border rounded shadow-sm p-5">
+        <table class="table table-bordered border-dark table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Date borrowed</th>
+                    <th scope="col">Date expired</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                
+                {% for item in history %}
+                {% with book=item.book %}
+
+                <tr>
+                    <th scope="row">{{ book.id }}</th>
+                    <td>{{ book.title }}</td>
+                    <td>{{ item.date_borrowed }}</td>
+                    <td>{{ item.date_expired }}</td>
+                </tr>
+
+                {% endwith %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
